@@ -7,12 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Cliente' => $baseDir . '/app/Class/Cliente.class.php',
+    'Compra' => $baseDir . '/app/Class/Compra.class.php',
     'Conn' => $baseDir . '/app/Conn/Conn.class.php',
     'Conta' => $baseDir . '/app/Class/Conta.class.php',
     'Create' => $baseDir . '/app/Conn/Create.class.php',
     'Data' => $baseDir . '/app/Class/Data.class.php',
     'Delete' => $baseDir . '/app/Conn/Delete.class.php',
-    'Edital' => $baseDir . '/app/Class/Edital.class.php',
     'Read' => $baseDir . '/app/Conn/Read.class.php',
     'Update' => $baseDir . '/app/Conn/Update.class.php',
     'Uploud' => $baseDir . '/app/Helpers/Uploud.class.php',

@@ -8,12 +8,12 @@ class ComposerStaticInit4fdf9e5b752dc9170d2c52e6698d1ab2
 {
     public static $classMap = array (
         'Cliente' => __DIR__ . '/../..' . '/app/Class/Cliente.class.php',
+        'Compra' => __DIR__ . '/../..' . '/app/Class/Compra.class.php',
         'Conn' => __DIR__ . '/../..' . '/app/Conn/Conn.class.php',
         'Conta' => __DIR__ . '/../..' . '/app/Class/Conta.class.php',
         'Create' => __DIR__ . '/../..' . '/app/Conn/Create.class.php',
         'Data' => __DIR__ . '/../..' . '/app/Class/Data.class.php',
         'Delete' => __DIR__ . '/../..' . '/app/Conn/Delete.class.php',
-        'Edital' => __DIR__ . '/../..' . '/app/Class/Edital.class.php',
         'Read' => __DIR__ . '/../..' . '/app/Conn/Read.class.php',
         'Update' => __DIR__ . '/../..' . '/app/Conn/Update.class.php',
         'Uploud' => __DIR__ . '/../..' . '/app/Helpers/Uploud.class.php',

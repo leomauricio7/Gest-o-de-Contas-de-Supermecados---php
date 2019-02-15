@@ -2,46 +2,27 @@
 
 require_once'../Conf.inc';
 require_once'../../vendor/autoload.php';
-$rs = null;
-if($_POST['tipo'] == 'pp'){
-    $rs = setDividaPP();
-    echo  json_encode($rs);
-    exit;
-}else{
-    $rs = setDividaPC();
-    echo json_encode($rs);
-    exit;
-}
 
-function setDividaPC(){
-    $update = new Update();
-    $dados = ['valor'=> '0.00','id_status'=>2];
-    $update->ExeUpdate('contas', $dados, 'where id = :id', 'id='.$_POST['id']);
-    if($update->getRowCount() > 0){
-        return $msg = ['msg'=>'Divida quitada'];
-    }else{
-        return $msg = ['msg' =>'Erro na quitação da divida'];
-    }
-}
+setDividaPP();
 
 function setDividaPP(){
-    $valorAntigo  = '';
-    $valorNovo = 0;;
+    $valorAntigo  = 0;
+    $valorNovo = 0;
     $read = new Read();
-    $read->ExeRead('contas', 'where id = :id', 'id='.$_POST['id']);
+    $read->ExeRead('compras', 'where id = :id', 'id='.$_GET['id']);
     foreach($read->getResult() as $dados){
         extract($dados);
-        $valorAntigo = $valor;
+        $valorAntigo = $valor_atual;
     }
-    $valorNovo = $valorAntigo - $_POST['valor'] < 0 ? 0 : $valorAntigo - $_POST['valor'];
+    $valorNovo = $valorAntigo - $_GET['valor'] < 0 ? 0 : $valorAntigo - $_GET['valor'];
     $status = $valorNovo == 0 ? 2 : 4;
     $update = new Update();
-    $dados = ['valor'=> $valorNovo,'id_status'=>$status];
-    $update->ExeUpdate('contas', $dados, 'where id = :id', 'id='.$_POST['id']);
+    $dados = ['valor_atual'=> $valorNovo, 'valor_ultimo_pagamento'=> $_GET['valor'], 'id_status'=>$status];
+    $update->ExeUpdate('compras', $dados, 'where id = :id', 'id='.$_GET['id']);
     if($update->getRowCount() > 0){
-        return $msg = ['msg'=>'Divida quitada'];
+        return ['msg'=>'Divida quitada'];
     }else{
-        return $msg = ['msg' =>'Erro na quitação da divida'];
+        return ['msg' =>'Erro na quitação da divida'];
     }
 
 }

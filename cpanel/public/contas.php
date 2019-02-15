@@ -39,7 +39,7 @@
     <h1 class="h2">Contas Cadastrados</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            <button class=" btn btn-sm btn-dark" data-toggle="modal" data-target="#create-conta"><i class="fa fa-plus-circle"></i> Nova Divida</button>
+            <button class=" btn btn-sm btn-dark" data-toggle="modal" data-target="#create-conta"><i class="fa fa-plus-circle"></i> Nova Conta</button>
         </div>
     </div>
 </div>
@@ -49,10 +49,7 @@
             <tr>
                 <th>ID</th>
                 <th>Cliente</th>
-                <th>Status</th>
                 <th>Data para pagamento</th>
-                <th>valor</th>
-                <th>Ultimo pagamento</th>
                 <th></th>
             </tr>
         </thead>
@@ -67,15 +64,14 @@
             <tr>
                 <td><?php echo $id; ?></td>
                 <td><?php echo $cliente; ?></td>
-                <td><span class="badge badge-<?php echo validation::getStatus($id_status) ?>"> <?php echo $status; ?></span></td>
                 <td><?php echo date('d/m/Y', strtotime($data_para_pagamento)) ?></td>
-                <td>R$ <?php echo number_format($valor, 2, ',', ''); ?></td>
-                <td><?php echo $ultimo_pagamento ?  date('d/m/Y', strtotime($ultimo_pagamento)) : '-' ; ?></td>
-                <td>
-                    <?php if($valor != '0.00'){ ?>
+                
+                 <td>
+                    <!-- <?php if($valor != '0.00'){ ?>
                     <button alt="<?php echo $id ?>" class="btn btn-sm btn-info pagar-parcialmente" data-toggle="tooltip" data-placement="top" title="Paga apenas um valor da divida."> <span class="fa fa-edit"></span> Pagar Parcialmente</button>
                     <button alt="<?php echo $id ?>" class="btn btn-sm btn-success pagar-completamente" data-toggle="tooltip" data-placement="top" title="Paga a divida completamente"> <span class="fa fa-edit"></span> Pagar Completamente</button>
-                    <?php } ?>
+                    <?php } ?> -->
+                    <a data-toggle="tooltip" data-placement="top" title="Detalhar Divida" href="<?php echo Url::getBase() . './compras/' . $id; ?>" class="btn btn-sm btn-info"> <span class="fa fa-cart-plus"></span> Compras</a>
                     <a data-toggle="tooltip" data-placement="top" title="Excluir Divida" href="<?php echo Url::getBase() . './app/delete.php?pag=contas&tb=contas&ch=id&value=' . $id; ?>" class="btn btn-sm btn-danger"> <span class="fa fa-trash"></span> Excluir</a>
                 </td>
             </tr>
@@ -88,7 +84,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nova Divida</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nova Conta</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -111,7 +107,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Status Conta</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="id_status" required>
@@ -126,9 +122,9 @@
                         <?php } ?>
                     </select>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="form-group row">
+            <!-- <div class="form-group row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Valor da Divida</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="valor" required>
@@ -136,7 +132,7 @@
                         Digite o valor da divida separado por <strong>.</strong> e não por <strong>,</strong> Ex: 5.90 e não 5,90
                     </small>
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Data para pagamento</label>

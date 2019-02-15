@@ -107,46 +107,51 @@ $tipoUser = $_SESSION['idTipo'];
             })
         </script>
         <script>
+
+         function CriaRequest() {
+            try{
+                request = new XMLHttpRequest();        
+            }catch (IEAtual){
+                try{
+                    request = new ActiveXObject("Msxml2.XMLHTTP");       
+                }catch(IEAntigo){
+                    try{
+                        request = new ActiveXObject("Microsoft.XMLHTTP");          
+                    }catch(falha){
+                        request = false;
+                    }
+                }
+            }
+            if (!request) 
+                alert("Seu Navegador não suporta Ajax!");
+            else
+                return request;
+            }
+
             $('.pagar-parcialmente').click(function(e){
                 e.preventDefault();
                 var id = $(this).attr('alt');
                 var valor = prompt('Valor a ser pago?');
-                $.ajax({
-                    url: 'app/Class/pagarDivida.php',
-                    type:'POST',
-                    data: 'id='+id+'&tipo=pp&valor='+valor,
-                    success: function(res){
-                        console.log(res)
-                        $('#success').show('fast');
-                        $('#error').hide('fast');
-                        location.reload();
-                    },
-                    error: function(err){
-                        console.log(err)
-                        $('#error').show('fast');
-                        $('#success').hide('fast');
+                var xmlreq = CriaRequest();
+                if(valor){
+                xmlreq.open("GET", "../app/Class/pagarDivida.php?id="+id+"&valor="+valor, true);
+                xmlreq.onreadystatechange = function(){
+                    // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+                    if (xmlreq.readyState == 4) {
+                        // Verifica se o arquivo foi encontrado com sucesso
+                        if (xmlreq.status == 200) {
+                            location.reload();
+                            $('#success').show('fast');
+                            $('#error').hide('fast');
+                        }else{
+                            location.reload();
+                            $('#success').hide('fast');
+                            $('#error').show('fast');
+                        }
                     }
-                })
-            });
-            $('.pagar-completamente').click(function(e){
-                e.preventDefault();
-                var id = $(this).attr('alt');
-                $.ajax({
-                    url: 'app/Class/pagarDivida.php',
-                    type:'POST',
-                    data: 'id='+id+'&tipo=pc',
-                    success: function(res){
-                        console.log(res)
-                        $('#success').show('fast');
-                        $('#error').hide('fast');
-                        location.reload();
-                    },
-                    error: function(err){
-                        console.log(err)
-                        $('#error').show('fast');
-                        $('#success').hide('fast');
-                    }
-                })
+                }
+                }
+                xmlreq.send(null);
             });
         </script>
         <script>

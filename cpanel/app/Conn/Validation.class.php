@@ -339,6 +339,17 @@ class Validation extends Conn {
         return $read->getRowCount();  
     }
     
+    public static function getClienteCompra($idConta){
+        $nameCliente = '';
+        $read = new Read();
+        $read->getContas('where c.id = '.$idConta);
+        foreach($read->getResult() as $conta){
+            extract($conta);
+            $nameCliente = $cliente;
+        }
+        return $nameCliente;
+    }
+    
     function getMsg() {
         return $this->Msg;
     }

@@ -17,27 +17,19 @@ class Read extends Conn {
         $this->Execute();
     }
 
-    public function consultaPermissoes($Termos = null) {
-        if (empty($Termos)):
-            $Termos = '';
-        endif;
-        $this->Select = 'SELECT u.id, ut.tipo as tipoUsers, u.id_situacao_permission, p.nome as pagina, p.legenda, p.url,  us.permissao as situacao FROM user_permision u INNER JOIN user_tipo ut ON u.id_user_tipo = ut.id INNER JOIN pages p ON u.id_page = p.id INNER JOIN user_situacao_permission us ON u.id_situacao_permission = us.id ' . $Termos;
-        $this->ExecuteSQL();
-    }
-
-    public function consulta_pasta($Termos = null) {
-        if (empty($Termos)):
-            $Termos = '';
-        endif;
-        $this->Select = 'SELECT c.pasta, m.nome, m.estado, m.brazao, m.data_cadastro,  m.endereco, m.situacao, m.servidor_bd, m.usuario_bd, m.senha_bd, m.nome_bd FROM municipios m INNER JOIN cidades c ON m.cidade = c.cod_cidades ' . $Termos;
-        $this->ExecuteSQL();
-    }
-
     public function getContas($Termos = null) {
         if (empty($Termos)):
             $Termos = '';
         endif;
         $this->Select = 'SELECT sc.status status, cl.nome as cliente, c.valor, c.data_para_pagamento, c.id, c.data_pagamento as ultimo_pagamento, c.id_status FROM contas c inner join clientes cl on c.id_cliente = cl.id inner join status_compra sc on c.id_status = sc.id ' . $Termos;
+        $this->ExecuteSQL();
+    }
+
+    public function getCompras($Termos = null) {
+        if (empty($Termos)):
+            $Termos = '';
+        endif;
+        $this->Select = 'SELECT sc.status, c.id_status, c.id_conta, c.valor, c.valor_atual, c.valor_ultimo_pagamento, c.created, c.updated, c.id as id_compra, c.id_status FROM compras c inner join status_compra sc on c.id_status = sc.id ' . $Termos;
         $this->ExecuteSQL();
     }
 
